@@ -1,17 +1,17 @@
 <template>
     <div class="row justify-center items-center window-height"
-        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-        <div class="flex column col-xs-11 col-sm-6 col-md-4 col-lg-3 items-center rounded-borders shadow-24 justify-center q-pa-xl"
-            style="background: rgba(255, 255, 255, 0.95); transition: all 0.3s ease;">
+        style="background: linear-gradient(135deg, #331955 0%, #764ba2 100%);">
+        <div class="flex column col-xs-11 col-sm-6 col-md-4 col-lg-3 items-center rounded-borders shadow-24 justify-center q-py-lg q-px-lg"
+            style="background: #F9F8F6; border-radius: 12px; transition: all 0.3s ease;">
             <div class="text-center q-mb-sm">
-                <h4 class="text-h4 q-ma-none text-weight-bold text-primary">Bienvenido</h4>
+                <h4 class="text-h4 q-ma-none text-weight-bold" style="color: #331955;">Bienvenido</h4>
                 <p class="text-grey-7 q-mt-sm">Ingresa tus credenciales</p>
             </div>
 
             <q-form @submit="handleLogin()" class="full-width q-mb-sm">
-                <div>
+                <div class="col-xs-12">
                     <q-input label="Correo electrónico" v-model="email" outlined  class="q-mb-sm"
-                        placeholder="ejemplo@email.com" type="email" lazy-rules :rules="[
+                        placeholder="ejemplo@email.com" lazy-rules :rules="[
                             val => !!val || 'Campo requerido',
                             val => /.+@.+\..+/.test(val) || 'Correo inválido'
                         ]">
@@ -39,7 +39,7 @@
                 </div>
 
                 <Button label="Iniciar Sesión" color="primary" type="submit" custom-class="full-width q-py-sm text-weight-bold"
-                    :loading="loading" :disabled="loading" size="lg" :outline="false" />
+                    :loading="loading" :rounded="false" :disabled="loading" size="lg" :outline="false" />
             </q-form>
         </div>
     </div>
@@ -91,7 +91,7 @@ const handleLogin = async () => {
         notify(res.msg, "positive")
         pruebasStore.setToken(res.token)
 
-        router.push("/home")
+        router.push("/app/home")
 
     }
     catch (error) {

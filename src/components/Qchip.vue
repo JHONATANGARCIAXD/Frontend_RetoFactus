@@ -1,6 +1,6 @@
 <template>
     <q-chip :color="props.color" :text-color="props.textColor" :label="props.label" :size="props.size"
-        :class="props.class" />
+        :class="props.class"  />
 </template>
 
 <script setup>

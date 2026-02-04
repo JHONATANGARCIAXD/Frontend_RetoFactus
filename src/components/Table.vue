@@ -1,9 +1,57 @@
 <template>
 
-    <q-table :rows="rows" :columns="columns" :row-key="rowKey" flat bordered v-model:pagination="pagination"
+    <q-markup-table v-if="loandingTable">
+        <thead>
+            <tr>
+                <th class="text-left" style="width: 150px">
+                    <q-skeleton animation="blink" type="text" />
+                </th>
+                <th class="text-right">
+                    <q-skeleton animation="blink" type="text" />
+                </th>
+                <th class="text-right">
+                    <q-skeleton animation="blink" type="text" />
+                </th>
+                <th class="text-right">
+                    <q-skeleton animation="blink" type="text" />
+                </th>
+                <th class="text-right">
+                    <q-skeleton animation="blink" type="text" />
+                </th>
+                <th class="text-right">
+                    <q-skeleton animation="blink" type="text" />
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr v-for="n in 4" :key="n">
+                <td class="text-left">
+                    <q-skeleton animation="blink" type="text" width="85px" />
+                </td>
+                <td class="text-right">
+                    <q-skeleton animation="blink" type="text" width="50px" />
+                </td>
+                <td class="text-right">
+                    <q-skeleton animation="blink" type="text" width="35px" />
+                </td>
+                <td class="text-right">
+                    <q-skeleton animation="blink" type="text" width="65px" />
+                </td>
+                <td class="text-right">
+                    <q-skeleton animation="blink" type="text" width="25px" />
+                </td>
+                <td class="text-right">
+                    <q-skeleton animation="blink" type="text" width="85px" />
+                </td>
+            </tr>
+        </tbody>
+    </q-markup-table>
+
+    <q-table v-else :rows="rows" :columns="columns" flat bordered v-model:pagination="pagination"
         :rows-per-page-options="[10, 20, 30]" @request="$emit('request', $event)"
-        rows-per-page-label="Registros Por Pagina" :loading="loandingTable" :hide-bottom="hideBottom"
-        :table-row-style-fn="effectiveRowStyleFn" class="table">
+        rows-per-page-label="Registros Por Pagina" :hide-bottom="hideBottom"
+        :table-row-style-fn="defaultRowStyleFn" class="table">
 
         <template #header="props">
             <q-th v-for="col in props.cols" :key="col.name" :props="props" class="table-header-cell">
@@ -48,8 +96,6 @@ const props = defineProps({
     title: { type: String, default: "" },
     rows: { type: Array, default: () => [] },
     columns: { type: Array, default: () => [] },
-    rowKey: { type: [String, Function], default: 'documentId' },
-    rowStyleFn: { type: Function, default: undefined },
     pagination: {
         type: Object,
         default: () => ({
@@ -71,12 +117,10 @@ const pagination = computed({
 })
 
 const defaultRowStyleFn = (row) => {
-    if (row?.state === 1) {
+    if (row?.status === 1) {
         return { backgroundColor: '#dedede' }
     }
 }
-
-const effectiveRowStyleFn = computed(() => props.rowStyleFn ?? defaultRowStyleFn)
 
 
 </script>
@@ -95,5 +139,10 @@ const effectiveRowStyleFn = computed(() => props.rowStyleFn ?? defaultRowStyleFn
 .table:deep(.q-table__linear-progress) {
     background-color: #60A5FA !important;
     height: 5px !important;
+}
+
+
+thead{
+    background-color: $colorHeaderTable;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <q-page class="q-pa-md window-height" style="background-color: #EEEEEE;">
+    <q-page class="q-pa-md" style="background-color: #F9F8F6;">
         
             <!-- Header minimalista y elegante -->
             <div class="header-section q-mb-lg">
@@ -13,9 +13,8 @@
                             <div class="text-subtitle2 text-grey-6">Administra tu inventario</div>
                         </div>
                     </div>
-                    <Button label="Agregar" icon="add"
-                        @click="op = 0, modalProducto = true, cleanInfo(), generateReference()" color="primary"
-                        size="md" />
+                    <Button label="Agregar" icon="add" @click="op = 0, modalProducto = true, cleanInfo(), generateReference()"
+            color="primary" size="md" to="/app/productos/newProducto" />
                 </div>
             </div>
 
@@ -288,7 +287,7 @@ const getPagination = (props) => {
 const getproductos = async () => {
     loandingTable.value = true
     try {
-        const res = await getData(`/products?populate=categories&sort=createdAt:desc&pagination[page]=${pagination.value.page}&pagination[pageSize]=${pagination.value.rowsPerPage}`)
+        const res = await getData(`/products/getProducts`)
 
         pagination.value.rowsNumber = res.meta.pagination.total
 
@@ -492,7 +491,7 @@ onMounted(() => {
 }
 
 .icon-wrapper {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #331955 0%, #764ba2 100%);
     width: 56px;
     height: 56px;
     border-radius: 12px;

@@ -1,5 +1,5 @@
 <template class="">
-    <q-page class="q-pa-md k" style="margin: 0; padding: 0; height: 100%; background-color: aqua;">
+    <q-page class="q-pa-md k" style="margin: 0; padding: 0; height: 100%; background-color: #F9F8F6;">
         <div class="q-pa-md modern-container">
             <!-- Header minimalista y elegante xd -->
             <div class="header-section q-mb-lg">
@@ -24,7 +24,7 @@
 
                     <template #status="props">
                         <td class="text-center">
-                            <Qchip :color="props.row.status == 0 ? 'green' : 'red'" text-color="white"
+                            <Qchip :color="props.row.status == 0 ? 'positive' : 'negative'" text-color="white"
                                 :label="props.row.status == 0 ? 'Activo' : 'Inactivo'" size="ld" class="state-chip" />
                         </td>
                     </template>
@@ -100,7 +100,7 @@
 }
 
 .icon-wrapper {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #331955 0%, #764ba2 100%);
     width: 56px;
     height: 56px;
     border-radius: 12px;
@@ -121,8 +121,6 @@
 .state-chip {
     font-weight: 500;
 }
-
-/* Modal Simple y Elegante */
 </style>
 
 <script setup>
@@ -168,8 +166,6 @@ const columns = ref([
     { name: 'options', label: "Opciones", align: 'center' }
 ]);
 
-let id_nuevo = ref('');
-let id = ref(null);
 let nombre = ref('');
 let descripcion = ref('');
 
@@ -240,12 +236,9 @@ const Categoria = async () => {
 const updateState = async (props) => {
     spinner.value = true;
     try {
-        await putData(`/categories/${props.id}`, {
-            data: {
-                state: props.state === 0 ? 1 : 0
-            }
-        });
-        success("Estado actualizado");
+        let enpoint = props.status == 0 ? `inactive` : `active`
+        let res = await putData(`/categories/${enpoint}Categories/${props.id}`)
+        success(res.msg);
         getCategories();
     } catch (err) {
         error(err.response?.data?.error?.message || 'Error al actualizar estado');

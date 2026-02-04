@@ -1,5 +1,5 @@
 <template>
-    <q-page class="q-pa-md" style="background-color: white; ">
+    <q-page class="q-pa-md" style="background-color: #F9F8F6; ">
         
             <!-- Header minimalista y elegante -->
             <div class="header-section q-mb-lg">
@@ -724,7 +724,7 @@ const onClienteSeleccionado = (val) => {};
 }
 
 .icon-wrapper {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #331955 0%, #764ba2 100%);
     width: 56px;
     height: 56px;
     border-radius: 12px;

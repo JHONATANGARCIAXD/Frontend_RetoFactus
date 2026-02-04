@@ -1,9 +1,9 @@
 import { apiClient } from '../plugins/pluginAxios.js'; // Importa tu instancia de Axios si está configurada en /plugins
 
 // Función GET
-export async function getData(url) {
+export async function getData(url, config = {}) {
     try {
-        const response = await apiClient.get(url);
+        const response = await apiClient.get(url, config);
         return response.data; // Devuelve los datos de la respuesta
     } catch (error) {
         console.error('Error en la petición GET:', error);

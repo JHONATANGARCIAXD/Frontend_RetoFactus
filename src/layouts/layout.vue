@@ -3,7 +3,9 @@
 
         <q-header elevated class="modern-header">
             <q-toolbar class="q-py-md q-px-lg">
-
+                <q-btn dense flat round :icon="leftDrawerOpen ? 'close': 'menu'" @click="leftDrawerOpen = !leftDrawerOpen">
+                    <q-tooltip class="bg-grey-9"  anchor="bottom middle">{{ leftDrawerOpen ? 'Cerrar': 'Menú' }}</q-tooltip>
+                </q-btn>
                 <q-toolbar-title>
                     <div class="row items-center q-gutter-md">
                         <div class="column">
@@ -20,7 +22,7 @@
                         <q-tooltip class="bg-grey-9">Perfil</q-tooltip>
                         <q-menu>
                             <q-list style="min-width: 200px">
-                                <q-item clickable v-close-popup to="/home/MiPerfil">
+                                <q-item clickable v-close-popup to="/app/MiPerfil">
                                     <q-item-section avatar>
                                         <q-icon name="person" />
                                     </q-item-section>
@@ -42,7 +44,8 @@
         </q-header>
 
 
-        <q-drawer v-model="leftDrawerOpen" :width="100" style="background-color: #190019;" side="left" behavior="desktop">
+        <q-drawer v-model="leftDrawerOpen" :width="100" style="background-color: #190019; " side="left">
+
             <q-list>
                 <q-item v-for="item in itemsMenu" :key="item.to" clickable v-ripple :to="item.to" class="menu-item"
                     active-class="active-menu-item">
@@ -51,7 +54,11 @@
                 </q-item>
             </q-list>
 
+
+
         </q-drawer>
+
+
 
         <q-page-container class="page-container bg-red">
             <router-view />
@@ -81,7 +88,7 @@ const router = useRouter()
 
 let fecha = new Date().getFullYear()
 
-const leftDrawerOpen = ref(true)
+const leftDrawerOpen = ref(false)
 
 const logout = () => {
     pruebasStore.clearToken()
@@ -89,10 +96,11 @@ const logout = () => {
 }
 
 const itemsMenu = [
-    { name: 'Productos', icon: 'shopping_cart', to: '/home/productos' },
-    { name: 'Categorías', icon: 'category', to: '/home/categorias' },
-    { name: 'Clientes', icon: 'people', to: '/home/clientes' },
-    { name: 'Ventas', icon: 'point_of_sale', to: '/home/ventas' },
+    { name: 'Inicio', icon: 'home', to: '/app/home' },
+    { name: 'Productos', icon: 'shopping_cart', to: '/app/productos' },
+    { name: 'Categorías', icon: 'category', to: '/app/categorias' },
+    { name: 'Clientes', icon: 'people', to: '/app/clientes' },
+    { name: 'Ventas', icon: 'point_of_sale', to: '/app/ventas' },
 ]
 
 </script>
@@ -100,7 +108,7 @@ const itemsMenu = [
 <style scoped>
 /* header */
 .modern-header {
-    background: rgb(0, 0, 0);
+    background: linear-gradient(135deg, #331955 0%, #764ba2 100%);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -133,7 +141,8 @@ const itemsMenu = [
     justify-content: center;
     border-radius: 12px 0 0 12px;
     background-color: #190019;
-    color: #fbe4d8;
+    color: #F9F8F6;
+    margin-left: 12px;
     margin-top: 20px;
 }
 
@@ -141,7 +150,7 @@ const itemsMenu = [
     font-size: 10px;
     padding: 0;
     margin: 0;
-    color: #fbe4d8;
+    color: #F9F8F6;
 }
 
 .menu-item:not(.active-menu-item):hover {
@@ -149,26 +158,26 @@ const itemsMenu = [
 }
 
 .active-menu-item {
-    background: rgba(189, 189, 189, 0.43);
-    color: #fbe4d8;
+    background: #F9F8F6;
+    color: #190019;
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
 .active-menu-item {
-    color: #ffffff;
+    color: #190019;
 }
 
 .active-menu-item p {
-    color: rgb(255, 255, 255);
+    color: #190019;
 }
 
 .modern-footer {
-    background-color: rgba(0, 0, 0);
+    background-color: #1F2937;
     color: #fbe4d8;
 }
 
 
-.page-container{
+.page-container {
     background-color: rgba(228, 227, 227, 0.549) !important;
     min-height: 100vh !important;
 }
